@@ -5,11 +5,16 @@
 const neo4j = require('neo4j-driver');
 require('dotenv').config();
 
+function cleanCredential(val) {
+  if (!val) return val;
+  return val.replace(/['"]/g, '').trim();
+}
+
 const driver = neo4j.driver(
-  process.env.NEO4J_URI || 'bolt://localhost:7687',
+  cleanCredential(process.env.NEO4J_URI) || 'bolt://localhost:7687',
   neo4j.auth.basic(
-    process.env.NEO4J_USER || 'neo4j',
-    process.env.NEO4J_PASSWORD || 'lexflow_dev_password'
+    cleanCredential(process.env.NEO4J_USER) || 'neo4j',
+    cleanCredential(process.env.NEO4J_PASSWORD) || 'lexflow_dev_password'
   )
 );
 
