@@ -63,12 +63,13 @@ app.get('/api/health/debug', (req, res) => {
   const url = process.env.SUPABASE_URL || '';
   
   res.json({
-    url: url,
+    supabaseUrl: url,
     anonKey_length: anonKey.length,
-    anonKey_start: anonKey.substring(0, 10),
-    anonKey_end: anonKey.slice(-5),
     serviceKey_length: serviceKey.length,
     node_env: process.env.NODE_ENV,
+    neo4jUri: process.env.NEO4J_URI || 'NOT_SET',
+    neo4jUser: process.env.NEO4J_USER || 'NOT_SET',
+    nlpUrl: process.env.NLP_SERVICE_URL || 'NOT_SET'
   });
 });
 
