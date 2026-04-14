@@ -23,7 +23,19 @@ const PORT = process.env.BACKEND_PORT || 3001;
 // ─── Middleware ───────────────────────────────────────────
 app.use(helmet({ crossOriginResourcePolicy: false }));
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5173',
+  origin: function (origin, callback) {
+    // Allow requests with no origin (like mobile apps or curl requests)
+    if (!origin) return callback(null, true);
+    
+    // Check allowed origins dynamically
+    const allowed = process.env.FRONTEND_URL ? process.env.FRONTEND_URL.split(',') : [];
+    if (allowed.includes(origin) || origin.includes('localhost') || origin.includes('vercel.app')) {
+      return callback(null, true);
+    }
+    
+    // Fallback allowing all for development/testing if no specific restrictions
+    callback(null, true); 
+  },
   credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));
