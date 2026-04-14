@@ -2,7 +2,10 @@
  * LexFlow Backend — Neo4j Service
  * Graph database queries for regulation matching and compliance checks.
  */
-const { driver } = require('../config/db');
+const { driver, NEO4J_DATABASE } = require('../config/db');
+
+// Helper to pass database config to executeQuery
+const dbConfig = NEO4J_DATABASE ? { database: NEO4J_DATABASE } : {};
 
 // In-memory fallback data when Neo4j is not available
 const MOCK_REGULATIONS = [
@@ -155,7 +158,7 @@ async function getRegulations(docType = null) {
     params = {};
   }
 
-  const result = await driver.executeQuery(query, params);
+  const result = await driver.executeQuery(query, params, dbConfig);
   return result.records.map(r => ({
     id: r.get('id'),
     name: r.get('name'),
@@ -202,7 +205,7 @@ async function getComplianceRules(docType) {
     ORDER BY v.severity DESC, r.name
   `;
 
-  const result = await driver.executeQuery(query, { docType });
+  const result = await driver.executeQuery(query, { docType }, dbConfig);
   return result.records.map(r => ({
     regulation: r.get('regulation'),
     section_number: r.get('section_number'),
@@ -237,7 +240,7 @@ async function getStats() {
     RETURN regs, secs, reqs, viols
   `;
 
-  const result = await driver.executeQuery(query);
+  const result = await driver.executeQuery(query, {}, dbConfig);
   const record = result.records[0];
   return {
     total_regulations: record.get('regs').toNumber(),

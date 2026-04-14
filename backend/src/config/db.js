@@ -18,6 +18,9 @@ const driver = neo4j.driver(
   )
 );
 
+// Neo4j Aura Free uses the instance ID as database name, not 'neo4j'
+const NEO4J_DATABASE = cleanCredential(process.env.NEO4J_DATABASE) || undefined;
+
 /**
  * Verify the Neo4j connection is working.
  */
@@ -33,4 +36,4 @@ async function verifyConnection() {
   }
 }
 
-module.exports = { driver, verifyConnection };
+module.exports = { driver, verifyConnection, NEO4J_DATABASE };
