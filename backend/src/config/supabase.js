@@ -12,7 +12,15 @@ function cleanKey(key) {
 }
 
 const supabaseUrl = cleanKey(process.env.SUPABASE_URL) || 'https://placeholder.supabase.co';
-const supabaseKey = cleanKey(process.env.SUPABASE_SERVICE_ROLE_KEY) || cleanKey(process.env.SUPABASE_ANON_KEY) || 'placeholder';
+
+const rawService = cleanKey(process.env.SUPABASE_SERVICE_ROLE_KEY);
+const rawAnon = cleanKey(process.env.SUPABASE_ANON_KEY);
+
+// Valid Supabase keys are JWTs, which are ~200 characters long.
+// If the key is less than 100 characters, it's definitely junk/placeholder text.
+const supabaseKey = (rawService && rawService.length > 100 ? rawService : null) 
+  || (rawAnon && rawAnon.length > 100 ? rawAnon : null) 
+  || 'placeholder';
 
 let supabase = null;
 
