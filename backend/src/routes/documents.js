@@ -168,6 +168,7 @@ async function processDocumentAsync(docId, fileBuffer, filename) {
     console.log(`✅ Analysis complete for ${filename}: Score ${complianceResult.compliance_score}%`);
   } catch (error) {
     console.error(`❌ Analysis failed for ${filename}:`, error.message);
+    global.latestDocError = `${filename}: ${error.message} \n ${error.stack}`;
     doc.status = 'error';
     doc.error = error.message;
   }

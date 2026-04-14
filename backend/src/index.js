@@ -58,6 +58,8 @@ app.get('/api/health', (req, res) => {
 });
 
 app.get('/api/health/debug', async (req, res) => {
+  // Hack to expose latest document error for debugging
+  global.latestDocError = global.latestDocError || 'None';
   const anonKey = process.env.SUPABASE_ANON_KEY || '';
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
   const url = process.env.SUPABASE_URL || '';
@@ -81,7 +83,8 @@ app.get('/api/health/debug', async (req, res) => {
     neo4jUri: process.env.NEO4J_URI || 'NOT_SET',
     neo4jUser: process.env.NEO4J_USER || 'NOT_SET',
     nlpUrl: process.env.NLP_SERVICE_URL || 'NOT_SET',
-    neo4j_diagnostic_error: neo4jError
+    neo4j_diagnostic_error: neo4jError,
+    latest_doc_error: global.latestDocError
   });
 });
 
