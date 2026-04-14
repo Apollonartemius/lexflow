@@ -1,0 +1,14 @@
+node_modules/
+.env
+*.env.local
+dist/
+build/
+__pycache__/
+*.pyc
+.venv/
+venv/
+*.egg-info/
+.DS_Store
+Thumbs.db
+.neo4j/
+neo4j_data/
