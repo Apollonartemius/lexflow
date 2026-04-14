@@ -57,6 +57,21 @@ app.get('/api/health', (req, res) => {
   });
 });
 
+app.get('/api/health/debug', (req, res) => {
+  const anonKey = process.env.SUPABASE_ANON_KEY || '';
+  const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
+  const url = process.env.SUPABASE_URL || '';
+  
+  res.json({
+    url: url,
+    anonKey_length: anonKey.length,
+    anonKey_start: anonKey.substring(0, 10),
+    anonKey_end: anonKey.slice(-5),
+    serviceKey_length: serviceKey.length,
+    node_env: process.env.NODE_ENV,
+  });
+});
+
 // ─── Root ────────────────────────────────────────────────
 app.get('/', (req, res) => {
   res.json({
