@@ -4,7 +4,11 @@
  */
 require('dotenv').config();
 
-const NLP_URL = process.env.NLP_SERVICE_URL || 'http://localhost:8000';
+let nlpUrlConfig = process.env.NLP_SERVICE_URL || 'http://localhost:8000';
+if (nlpUrlConfig && !nlpUrlConfig.startsWith('http')) {
+  nlpUrlConfig = `https://${nlpUrlConfig}`;
+}
+const NLP_URL = nlpUrlConfig;
 
 /**
  * Send a document to the NLP service for processing.

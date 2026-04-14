@@ -57,10 +57,21 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-app.get('/api/health/debug', (req, res) => {
+app.get('/api/health/debug', async (req, res) => {
   const anonKey = process.env.SUPABASE_ANON_KEY || '';
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
   const url = process.env.SUPABASE_URL || '';
+  
+  // Test Neo4j connection specifically to capture error
+  let neo4jError = 'None';
+  try {
+    const neo4jService = require('./services/neo4jService');
+    const db = require('./config/db');
+    await db.driver.getServerInfo();
+    neo4jError = 'Connected Successfully';
+  } catch (err) {
+    neo4jError = err.message || err.toString();
+  }
   
   res.json({
     supabaseUrl: url,
@@ -69,7 +80,8 @@ app.get('/api/health/debug', (req, res) => {
     node_env: process.env.NODE_ENV,
     neo4jUri: process.env.NEO4J_URI || 'NOT_SET',
     neo4jUser: process.env.NEO4J_USER || 'NOT_SET',
-    nlpUrl: process.env.NLP_SERVICE_URL || 'NOT_SET'
+    nlpUrl: process.env.NLP_SERVICE_URL || 'NOT_SET',
+    neo4j_diagnostic_error: neo4jError
   });
 });
 
