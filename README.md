@@ -492,7 +492,7 @@ VITE_API_URL=http://localhost:3001
 
 <table>
 <tr>
-<td align="center"><strong>Inzamam Ul Haque Haidery</strong><br/><sub><a>haideryinzamam2005@gmail.com</a></sub></td>
+<td align="center"><strong>Inzamam Ul Haque Haidery</strong><br/><sub><a haideryinzamam2005@gmail.com></a></sub></td>
 
 </tr>
 </table>
