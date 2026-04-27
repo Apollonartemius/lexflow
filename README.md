@@ -492,9 +492,8 @@ VITE_API_URL=http://localhost:3001
 
 <table>
 <tr>
-<td align="center"><strong>Inzamam Ul Haque Haidery</strong><br/><sub>31230475@vupune.ac.in</sub></td>
-<td align="center"><strong>Anmol Gadade</strong><br/><sub>31230193@vupune.ac.in</sub></td>
-<td align="center"><strong>Rishikesh Kotgirwar</strong><br/><sub>31230141@vupune.ac.in</sub></td>
+<td align="center"><strong>Inzamam Ul Haque Haidery</strong><br/><sub>haideryinzamam2005@gmail.com</sub></td>
+
 </tr>
 </table>
 
