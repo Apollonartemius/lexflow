@@ -497,10 +497,6 @@ VITE_API_URL=http://localhost:3001
 </tr>
 </table>
 
-<div align="center">
-<sub>Department of Artificial Intelligence · Vishwakarma University, Pune</sub>
-</div>
-
 ---
 
 ## 📜 License
